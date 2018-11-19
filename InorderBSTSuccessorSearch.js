@@ -1,5 +1,3 @@
-Inorder BST Successor Search
-
 /********************************************************
  * CODE INSTRUCTIONS:                                   *
  * 1) The method findInOrderSuccessor you're asked      *
@@ -30,22 +28,28 @@ function BinarySearchTree() {
 // successor: null 
 // curr: 5
 BinarySearchTree.prototype.findInOrderSuccessor = function(inputNode) {
-  // successor = null
-  // curr: 5
+  let successor = null
+  let curr = this.getNodeByKey(inputNode.key);
   
-  // get node by key
-    // check if the curr node has right 
-      // successor = node.right
-    // check the parent of curr node 
-      // if the parent > curr
-         // successor = parent
-      // else if parent's parent and check for parent's parent > input
-         // traverse up the branch to find parent
-          // if no parent exists, return null
-          // else if parent > input
-            // successor = parent
+  if (curr.right) {
+    successor = curr.right;
+    while (successor.left) {
+      successor = successor.left;
+    }
+  } else {
+    while (curr.parent) {
+      if (curr.parent.key > inputNode.key) {
+        if (!successor) {
+          successor = curr.parent;  
+        } else if (curr.parent.key < successor.key) {
+          successor = curr.parent;
+        }
+      }
+      curr = curr.parent;
+    }
+  }
   
-  // return successor;
+  return successor;
 }
 
 // Creates a new node by a key and inserts it to the BST
@@ -123,7 +127,7 @@ bst.insert(11);
 bst.insert(14);
 
 // Get a reference to the node whose key is 9
-var test = bst.getNodeByKey(9);
+var test = bst.getNodeByKey(20);
 
 // Find the in order successor of test
 var succ = test ? bst.findInOrderSuccessor(test) : null;
