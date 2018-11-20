@@ -29,7 +29,7 @@ output: 0
 
 
 function deletionDistance(str1, str2) {
-  int[][] dp = new int[str1.length()+1][str2.length()+1];
+  // int[][] dp = new int[str1.length()+1][str2.length()+1];
   /*
   ex: dog, frog
   row i, column:j 
@@ -45,5 +45,6 @@ function deletionDistance(str1, str2) {
     "do", "fro" -> 3
           
   */
+  
  
 }
