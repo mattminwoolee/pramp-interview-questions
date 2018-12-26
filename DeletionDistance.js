@@ -29,22 +29,40 @@ output: 0
 
 
 function deletionDistance(str1, str2) {
-  // int[][] dp = new int[str1.length()+1][str2.length()+1];
+  let memo = [];
+  
+  for (let row = 0; row < str1.length+1; row++) {
+    let newRow = [];
+    for (let col = 0; col < str2.length+1; col++) {
+      if ( row === 0) {
+        newRow.push(col);
+      } else if (col === 0) {
+        newRow.push(row);
+      } else if (str1[row-1] === str2[col-1]) {
+        newRow.push(memo[row-1][col-1]);
+      } else { 
+        newRow.push( 1 + Math.min(memo[row-1][col], newRow[col-1]));
+      }
+    }
+    memo.push(newRow);
+  }
+
+  return memo[str1.length][str2.length];
   /*
   ex: dog, frog
   row i, column:j 
          0   1   2   3
              d   o   g
     0    0   1   2   3
-    1 f  1   2   3
-    2 r  2   3   4
-    3 o  3   4   3
-    4 g  4   5   4
+    1 f  1   2   3   4
+    2 r  2   3   4   5
+    3 o  3   4   3   4
+    4 g  4   5   4   3
           
     "", "f" -> 1
     "do", "fro" -> 3
           
   */
-  
  
 }
+
